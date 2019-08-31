@@ -12,7 +12,7 @@ Randomize
 While qtr <= 20
 	If ctr > 100 Then 
 		dx = RndExR(42, 989)
-		dy = RndExR(27,542)
+		dy = RndExR(27,345)
 		pt = RndExR(-300, 200)
 		Touch dx, dy, 700 + pt
 		ctr = -1
@@ -49,7 +49,7 @@ While qtr <= 20
 	FindColor 131, 384, 310, 453, "FFFA40|FFFD40|FFFF42", 0, 1, intX, intY
 	If intX > -1 And intY > 1 Then 
 		dx = RndExR(42, 989)
-		dy = RndExR(27,542)
+		dy = RndExR(27,345)
 		pt = RndExR(-300, 200)
 		Touch dx, dy, 700 + pt
 		ctr = -1
