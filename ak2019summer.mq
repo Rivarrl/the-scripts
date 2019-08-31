@@ -1,0 +1,59 @@
+Function RndExR(a, b)
+	RndExR = Int(((b-a+1) * Rnd()) + a)
+End Function
+
+Dim ctr, qtr, ss
+Dim intX,intY, pt
+Dim dx, dy
+ctr = 0
+qtr = 0
+ss = True
+Randomize
+While qtr <= 20
+	If ctr > 100 Then 
+		dx = RndExR(42, 989)
+		dy = RndExR(27,542)
+		pt = RndExR(-300, 200)
+		Touch dx, dy, 700 + pt
+		ctr = -1
+		qtr = qtr + 1
+		TracePrint qtr
+	End If
+	FindColor 821, 489, 1004, 572, "FFFFFF|D69500|9A6900", 0, 1, intX, intY
+	If intX > -1 And intY > -1 Then 
+		dx = RndExR(841, 986)
+		dy = RndExR(508, 549)
+		pt = RndExR(-300, 200)
+		Touch dx, dy, 700 + pt
+		ctr = -1
+	End If
+	// 这里需要添加碎石逻辑
+	If ss = True Then 
+		Delay 1000
+		FindMultiColor 718,43,785,129,"FFFFFF","-28|3|12525E,-22|64|676767",0,1,intX,intY
+		If intX > -1 And intY > -1 Then
+			Touch 869, 456, 700 + pt
+		End If
+	End If
+	
+
+	FindMultiColor 843,311,924,500,"003093","-111|-314|DC9800,76|4|00349F",0,1,intX,intY
+	If intX > -1 And intY > -1 Then
+		dx = RndExR(840, 925)
+		dy = RndExR(315, 488)
+		pt = RndExR(-300, 200)
+		Touch dx, dy, 700 + pt
+		ctr = -1
+	End If
+
+	FindColor 131, 384, 310, 453, "FFFA40|FFFD40|FFFF42", 0, 1, intX, intY
+	If intX > -1 And intY > 1 Then 
+		dx = RndExR(42, 989)
+		dy = RndExR(27,542)
+		pt = RndExR(-300, 200)
+		Touch dx, dy, 700 + pt
+		ctr = -1
+	End If
+	Delay 2300 + pt
+	ctr = ctr + 1
+Wend
