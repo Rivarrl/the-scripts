@@ -1,0 +1,12 @@
+#!/bin/bash
+
+status=`xinput list-props 14 | grep 'Device Enabled' | awk {'print $4'}`
+if [ $status -eq 0 ]
+then
+	xinput enable 14
+	notify-send "Touchpad is disabled!" --icon=$HOME/.icons/myicons/touchpad-disable-icon-th.png
+elif [ $status -eq 1 ]
+then
+	xinput disable 14
+	notify-send "Touchpad is enabled!" --icon=$HOME/.icons/myicons/touchpad-enable-icon-th.png
+fi
