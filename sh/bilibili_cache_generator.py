@@ -8,7 +8,7 @@ import os
 import argparse
 
 parser = argparse.ArgumentParser(description="Bilibili Cache Generator")
-parser.add_argument('--video_dir', default=r'F:\bilibili\24795835', help="视频目录, 以av号文件夹为单位")
+parser.add_argument('--video_dir', default=r'F:\bilibili\61747592', help="视频目录, 以av号文件夹为单位")
 args = parser.parse_args()
 base_dir = args.video_dir
 
@@ -29,10 +29,15 @@ def blv_concat(dir, blvs):
     nf = dir.split(os.sep)[-2] + '.mp4'
     os.system('ffmpeg.exe -f concat -safe 0 -i %s -c copy %s' % (tmp_file, os.path.join(base_dir, nf)))
     os.remove(tmp_file)
-    print(blvs)
 
 def m4s_generate(dir, m4ss):
-    return
+    audio = 'audio.m4s'
+    video = 'video.m4s'
+    if not audio in m4ss or not video in m4ss: return
+    audio_path = os.path.join(dir, audio).replace('\\', '/')
+    video_path = os.path.join(dir, video).replace('\\', '/')
+    nf = dir.split(os.sep)[-2] + '.mp4'
+    os.system('ffmpeg -i %s -i %s -vcodec copy -acodec copy %s' % (audio_path, video_path, os.path.join(base_dir, nf)))
 
 video_dirs = os.listdir(base_dir)
 for dn in video_dirs:

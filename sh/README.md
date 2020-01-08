@@ -13,10 +13,14 @@
 > 本机测试成功, Sony Vaio SVF143系, Archlinux + Xfce4 
 
 #### bilibili_cache_generator.py  
-> b站安卓客户端缓存文件合并(blv格式&m4s)  
+> b站安卓客户端缓存文件合并(blv格式 & m4s格式)  
 > 用到了ffmpeg.exe, 可到[官网](http://www.ffmpeg.org/download.html)下载
 > 把解压后的bin目录添加到系统变量path中
+> 生成之后源文件还保留着, 需要手动删除
 
+#### bcg_batch.bat
+> 如果你在b站缓存的av号很多, 请用这个批处理文件来统一生成
+> 记得修改里面的menu路径
 
 #### multiyys.bat
 > 阴阳师客户端实现多开, 就一行, 点几次出几个  
