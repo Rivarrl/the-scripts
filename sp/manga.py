@@ -82,11 +82,13 @@ def mhp_crawl(suffix):
     """
     漫画铺，从第x话获取所有图片
     """
+    url_prefix = "https://datu.xtiyu.com/"
     path_conf = mhp_crawl_menu(suffix)
     _pkl_path = path_conf["pkl_path"]
     _folder_path = path_conf["folder_path"]
     _cpkd_path = os.path.join(_folder_path, 'content.pkl')
     _cpkd_part_path = _folder_path + '/' + 'content_{}.pkl'
+    _pic_url_prefix = "https://datu.xtiyu.com/"
     if not os.path.exists(_cpkd_path):
         with open(_pkl_path, 'rb') as f:
             pkd = pickle.load(f)
@@ -96,7 +98,7 @@ def mhp_crawl(suffix):
             _cpkd_part = _cpkd_part_path.format(p_name)
             if os.path.exists(_cpkd_part):
                 with open(_cpkd_part, 'rb') as f:
-                    real_urls = pickle.load(f)
+                    pkdps = pickle.load(f)
             else:
                 _url = urls['mhp'] + p_href
                 resp_1 = requests.get(_url, headers)
@@ -105,11 +107,16 @@ def mhp_crawl(suffix):
                 qTcms_S_m_murl_e = pat.search(resp_1.text).group(1)
                 real_urls_str = base64.b64decode(qTcms_S_m_murl_e).decode()
                 real_urls = real_urls_str.split('$qingtiandy$')
+                pat1 = re.compile(r'var qTcms_S_m_mhttpurl="(.*?)";', re.S)
+                m_httpurl = pat1.search(resp_1.text).group(1)
+                pat2 = re.compile(r'var qTcms_S_m_id="(.*?)";', re.S)
+                picid = pat2.search(resp_1.text).group(1)
+                pkdps = {"real_urls":real_urls, "picid":picid, "m_httpurl":m_httpurl}
                 with open(_cpkd_part, 'wb') as f:
-                    pickle.dump(real_urls, f)
+                    pickle.dump(pkdps, f)
                 delay(0.5, 1.5)
             print(p_name, '图片链接已记录')
-            content_pkd[p_name] = real_urls
+            content_pkd[p_name] = pkdps
         with open(_cpkd_path, 'wb') as f:
             pickle.dump(content_pkd, f)
         for p_name, p_href in pkd.items():
@@ -119,14 +126,19 @@ def mhp_crawl(suffix):
     else:
         with open(_cpkd_path, 'rb') as f:
             content_pkd = pickle.load(f)
-    for p_name, p_pic_urls in content_pkd.items():
+    for p_name, pkdps in content_pkd.items():
+        p_pic_urls, picid, m_httpurl = pkdps
         _cur_folder_path = os.path.join(_folder_path, p_name)
         validate_mkdir(_cur_folder_path)
         _pic_path = _cur_folder_path + '/' + '{}.jpg'
         start_idx = len(os.listdir(_cur_folder_path))
         for i in range(start_idx, len(p_pic_urls)):
             _pic_url = p_pic_urls[i]
-            resp = requests.get(_pic_url, headers)
+            resp = requests.get(url_prefix, headers, params={
+                "p": _pic_url,
+                "picid": picid,
+                "m_httpurl": m_httpurl
+            })
             with open(_pic_path.format(i+1), 'wb') as f:
                 f.write(resp.content)
             print('当前进度：第{} -- 第{}页'.format(p_name, i+1))
