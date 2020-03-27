@@ -97,6 +97,7 @@ def gen():
     path = './data/{}.pkl'
 
 
+
 if __name__ == '__main__':
     f = open('./data/18183.pkl', 'rb')
     hs = pickle.load(f)
