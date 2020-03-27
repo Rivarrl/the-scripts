@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 # ======================================
-# @File    : xsfy.py
+# @File    : 18183_crawler.py
 # @Time    : 2020/3/23 23:42
 # @Author  : Rivarrl
 # ======================================
 # 抓数据：http://www.18183.com/yys/201610/xsfy.html
 
 import requests
-from bs4 import BeautifulSoup
+import pickle
+
 
 url = "http://www.18183.com/yys/201610/xsfy.html"
 header = {
@@ -15,9 +16,5 @@ header = {
 }
 resp = requests.get(url, header)
 resp.encoding = resp.apparent_encoding
-bf = BeautifulSoup(resp.text, 'html.parser')
-contents = bf.select('.content .panel')
-print(contents)
-print(len(contents))
-xmxs, ts, yh, yqfy, yyh = contents[:5]
-tower = contents[5:]
+with open('./data/18183.pkl', 'wb') as f:
+    pickle.dump(resp.text, f)
