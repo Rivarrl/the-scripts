@@ -95,6 +95,7 @@ def gen():
     需要手动补上
     """
     path = './data/{}.pkl'
+    xmxs, ts, yh, yqfy, tower = 'xmxs', 'ts', 'yh', 'yqfy', 'tower'
 
 
 
