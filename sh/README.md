@@ -27,3 +27,6 @@
 > 注意: 把文件中的client替换成自己的路径
 
 #### yys_bonus.py
+
+#### osu_cp.py
+> 将osu的Songs文件夹中的所有图片&音乐copy到指定文件夹中
