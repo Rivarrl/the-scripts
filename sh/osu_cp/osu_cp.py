@@ -27,7 +27,9 @@ class Format:
         if self.size_limit:
             sz = os.path.getsize(ori)
             if sz < self.size_limit: return
-        shutil.copy(ori, os.path.join(self.output, "{}.{}".format(dest_name, format)))
+        dest_path = os.path.join(self.output, "{}.{}".format(dest_name, format))
+        if not os.path.exists(dest_path):
+            shutil.copy(ori, dest_path)
 
 # 格式，根据需要酌情添加
 song_fmt = {"mp3", "wav", "ogg"}
