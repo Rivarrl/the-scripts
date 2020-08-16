@@ -1,0 +1,50 @@
+Function RndExR(a, b)
+	RndExR = Int(((b-a+1) * Rnd()) + a)
+End Function
+
+Dim ctr, qtr
+Dim intX,intY, pt
+Dim dx, dy
+ctr = 0
+qtr = 0
+Randomize
+While qtr <= 20
+	If ctr > 100 Then
+		dx = RndExR(42, 989)
+		dy = RndExR(27,345)
+		pt = RndExR(-300, 200)
+		Touch dx, dy, 700 + pt
+		ctr = -1
+		qtr = qtr + 1
+		TracePrint qtr
+	End If
+	FindColor 1058, 635, 1235,682, "FFFFFF|E4B3F5|935AA4", 0, 1, intX, intY
+	If intX > -1 And intY > -1 Then
+		dx = RndExR(1058, 1235)
+		dy = RndExR(635, 660)
+		pt = RndExR(-300, 200)
+		Touch dx, dy, 700 + pt
+		ctr = -1
+	End If
+
+	FindMultiColor 1050,390,1160,620,"0048BF","99|230|0046C1,30|120|FFFFFF",0,0.9,intX,intY
+	If intX > -1 And intY > -1 Then
+		dx = RndExR(1055,1154)
+		dy = RndExR(390, 620)
+		pt = RndExR(-300, 200)
+		Touch dx, dy, 700 + pt
+		ctr = -1
+	End If
+
+	FindMultiColor 6,452,1275,700,"FFFF41","74|-3|FFF33E,151|-3|FFF740,1039|178|151414",0,0.9,intX,intY
+	If intX > -1 And intY > -1 Then
+		dx = RndExR(1000,1250 )
+		dy = RndExR(200,400)
+		pt = RndExR(-300, 200)
+		Touch dx, dy, 700 + pt
+		ctr = -1
+	End If
+
+	Delay 2300 + pt
+	ctr = ctr + 1
+Wend
